@@ -1,0 +1,2 @@
+const missing=[];if(!process.env.DATABASE_URL?.startsWith('postgres'))missing.push('DATABASE_URL');if((process.env.SESSION_SECRET?.length||0)<32)missing.push('SESSION_SECRET (32+ characters)');if((process.env.ADMIN_PASSWORD?.length||0)<16)missing.push('ADMIN_PASSWORD (16+ characters)');try{const u=new URL(process.env.APP_URL);if(!['https:','http:'].includes(u.protocol))throw Error()}catch{missing.push('APP_URL')}
+if(missing.length){console.error('Configure: '+missing.join(', '));process.exit(1)}console.log('Required environment variables are present. No secrets printed.');
